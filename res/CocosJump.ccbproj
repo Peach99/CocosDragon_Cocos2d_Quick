@@ -25,7 +25,7 @@
 	<key>javascriptMainCCB</key>
 	<string></string>
 	<key>needRepublish</key>
-	<false/>
+	<true/>
 	<key>onlyPublishCCBs</key>
 	<true/>
 	<key>publishDirectory</key>
@@ -39,7 +39,7 @@
 	<key>publishEnabledHTML5</key>
 	<false/>
 	<key>publishEnablediPhone</key>
-	<false/>
+	<true/>
 	<key>publishResolutionHTML5_height</key>
 	<integer>640</integer>
 	<key>publishResolutionHTML5_scale</key>
@@ -47,13 +47,13 @@
 	<key>publishResolutionHTML5_width</key>
 	<integer>960</integer>
 	<key>publishResolution_</key>
-	<false/>
+	<true/>
 	<key>publishResolution_hd</key>
-	<false/>
+	<true/>
 	<key>publishResolution_ipad</key>
-	<false/>
+	<true/>
 	<key>publishResolution_ipadhd</key>
-	<false/>
+	<true/>
 	<key>publishResolution_large</key>
 	<false/>
 	<key>publishResolution_medium</key>
