@@ -14,6 +14,8 @@
 	<integer>4</integer>
 	<key>guides</key>
 	<array/>
+	<key>jsControlled</key>
+	<true/>
 	<key>nodeGraph</key>
 	<dict>
 		<key>baseClass</key>
@@ -83,6 +85,17 @@
 				<array>
 					<dict>
 						<key>name</key>
+						<string>anchorPoint</string>
+						<key>type</key>
+						<string>Point</string>
+						<key>value</key>
+						<array>
+							<real>0.5</real>
+							<real>0.5</real>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
 						<string>scale</string>
 						<key>type</key>
 						<string>ScaleLock</string>
@@ -102,15 +115,15 @@
 						<key>type</key>
 						<string>Degrees</string>
 						<key>value</key>
-						<real>360</real>
+						<real>0.0</real>
 					</dict>
 					<dict>
 						<key>name</key>
-						<string>visible</string>
+						<string>ignoreAnchorPointForPosition</string>
 						<key>type</key>
 						<string>Check</string>
 						<key>value</key>
-						<true/>
+						<false/>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -144,6 +157,17 @@
 				<array>
 					<dict>
 						<key>name</key>
+						<string>anchorPoint</string>
+						<key>type</key>
+						<string>Point</string>
+						<key>value</key>
+						<array>
+							<real>0.5</real>
+							<real>0.5</real>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
 						<string>scale</string>
 						<key>type</key>
 						<string>ScaleLock</string>
@@ -157,11 +181,11 @@
 					</dict>
 					<dict>
 						<key>name</key>
-						<string>visible</string>
+						<string>ignoreAnchorPointForPosition</string>
 						<key>type</key>
 						<string>Check</string>
 						<key>value</key>
-						<true/>
+						<false/>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -181,10 +205,12 @@
 		<string>Bomb</string>
 		<key>displayName</key>
 		<string>Bomb</string>
+		<key>jsController</key>
+		<string>Bomb</string>
 		<key>memberVarAssignmentName</key>
-		<string></string>
+		<string>Bomb</string>
 		<key>memberVarAssignmentType</key>
-		<integer>0</integer>
+		<integer>1</integer>
 		<key>properties</key>
 		<array>
 			<dict>
@@ -213,13 +239,15 @@
 			</dict>
 			<dict>
 				<key>name</key>
-				<string>visible</string>
+				<string>ignoreAnchorPointForPosition</string>
 				<key>type</key>
 				<string>Check</string>
 				<key>value</key>
-				<true/>
+				<false/>
 			</dict>
 		</array>
+		<key>selected</key>
+		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>
@@ -245,6 +273,13 @@
 		<dict>
 			<key>autoPlay</key>
 			<true/>
+			<key>callbackChannel</key>
+			<dict>
+				<key>keyframes</key>
+				<array/>
+				<key>type</key>
+				<integer>10</integer>
+			</dict>
 			<key>chainedSequenceId</key>
 			<integer>0</integer>
 			<key>length</key>
@@ -254,13 +289,20 @@
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>2</real>
+			<real>0.0</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
 			<real>128</real>
 			<key>sequenceId</key>
 			<integer>0</integer>
+			<key>soundChannel</key>
+			<dict>
+				<key>keyframes</key>
+				<array/>
+				<key>type</key>
+				<integer>9</integer>
+			</dict>
 		</dict>
 	</array>
 	<key>stageBorder</key>

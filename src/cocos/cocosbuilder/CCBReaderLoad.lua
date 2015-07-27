@@ -77,15 +77,26 @@ function CCBReaderLoad(strFilePath,proxy,owner)
         for i = 1, table.getn(documentOutletNames) do
             local outletName = documentOutletNames[i]
             local outletNode = tolua.cast(documentOutletNodes[i],"cc.Node")
-            
+            -- print(outletName)
+            -- print(outletNode:getTag())
             if nil ~= ccb[documentControllerName] then
-                ccb[documentControllerName][outletName] = tolua.cast(outletNode, proxy:getNodeTypeName(outletNode))
+                -- print("castNode.config_key " .. proxy:getNodeTypeName(outletNode))
+                local TypeName = proxy:getNodeTypeName(outletNode)
+                if proxy:getNodeTypeName(outletNode) == "No Support" then
+                    TypeName = "cc.Node"
+                end    
+
+                local castNode = tolua.cast(outletNode, TypeName)
+                ccb[documentControllerName][outletName] = castNode
+                castNode.config_key = outletName
+                print("castNode.config_key " .. outletName .. " ".. castNode.config_key)
             end 
         end
-        --[[
-        if (typeof(controller.onDidLoadFromCCB) == "function")
-            controller.onDidLoadFromCCB();
-        ]]--
+        -- [[
+        -- if   "function" == type(owner.onDidLoadFromCCB)then
+        --     owner.onDidLoadFromCCB()
+        -- end
+        -- ]]
         --Setup timeline callbacks
         local keyframeCallbacks = animationManager:getKeyframeCallbacks()
 

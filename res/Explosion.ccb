@@ -14,6 +14,8 @@
 	<integer>4</integer>
 	<key>guides</key>
 	<array/>
+	<key>jsControlled</key>
+	<true/>
 	<key>nodeGraph</key>
 	<dict>
 		<key>baseClass</key>
@@ -33,7 +35,7 @@
 									<key>easing</key>
 									<dict>
 										<key>type</key>
-										<integer>1</integer>
+										<integer>0</integer>
 									</dict>
 									<key>name</key>
 									<string>visible</string>
@@ -48,7 +50,7 @@
 									<key>easing</key>
 									<dict>
 										<key>type</key>
-										<integer>1</integer>
+										<integer>0</integer>
 									</dict>
 									<key>name</key>
 									<string>visible</string>
@@ -82,6 +84,16 @@
 				<key>properties</key>
 				<array>
 					<dict>
+						<key>baseValue</key>
+						<integer>1</integer>
+						<key>name</key>
+						<string>visible</string>
+						<key>type</key>
+						<string>Check</string>
+						<key>value</key>
+						<false/>
+					</dict>
+					<dict>
 						<key>name</key>
 						<string>anchorPoint</string>
 						<key>type</key>
@@ -106,14 +118,12 @@
 						</array>
 					</dict>
 					<dict>
-						<key>baseValue</key>
-						<integer>1</integer>
 						<key>name</key>
-						<string>visible</string>
+						<string>ignoreAnchorPointForPosition</string>
 						<key>type</key>
 						<string>Check</string>
 						<key>value</key>
-						<true/>
+						<false/>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -372,11 +382,11 @@
 					</dict>
 					<dict>
 						<key>name</key>
-						<string>visible</string>
+						<string>ignoreAnchorPointForPosition</string>
 						<key>type</key>
 						<string>Check</string>
 						<key>value</key>
-						<true/>
+						<false/>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -599,6 +609,8 @@
 		<string>Explosion</string>
 		<key>displayName</key>
 		<string>Explosion</string>
+		<key>jsController</key>
+		<string>Explosion</string>
 		<key>memberVarAssignmentName</key>
 		<string></string>
 		<key>memberVarAssignmentType</key>
@@ -631,13 +643,15 @@
 			</dict>
 			<dict>
 				<key>name</key>
-				<string>visible</string>
+				<string>ignoreAnchorPointForPosition</string>
 				<key>type</key>
 				<string>Check</string>
 				<key>value</key>
-				<true/>
+				<false/>
 			</dict>
 		</array>
+		<key>selected</key>
+		<true/>
 		<key>seqExpanded</key>
 		<true/>
 	</dict>
@@ -665,6 +679,13 @@
 		<dict>
 			<key>autoPlay</key>
 			<true/>
+			<key>callbackChannel</key>
+			<dict>
+				<key>keyframes</key>
+				<array/>
+				<key>type</key>
+				<integer>10</integer>
+			</dict>
 			<key>chainedSequenceId</key>
 			<integer>-1</integer>
 			<key>length</key>
@@ -681,6 +702,13 @@
 			<real>128</real>
 			<key>sequenceId</key>
 			<integer>0</integer>
+			<key>soundChannel</key>
+			<dict>
+				<key>keyframes</key>
+				<array/>
+				<key>type</key>
+				<integer>9</integer>
+			</dict>
 		</dict>
 	</array>
 	<key>stageBorder</key>
