@@ -7,16 +7,15 @@ local Bomb = import("app.Bomb")
 local EndCoin = import("app.EndCoin")
 local Dragon = import("app.Dragon")
 
-
-local GameScene = class("GameScene", function()
-	return display.newScene("GameScene")
-end)
-
 ccb["Level"] = GameScene
 ccb["Dragon"] = {}
 ccb["Coin"] = {}
 ccb["EndCoin"] = {}
 ccb["Bomb"] = {}
+
+local GameScene = class("GameScene", function()
+	return display.newScene("GameScene")
+end)
 
 function GameScene:onEnter()
 	-- print("onEnter()")
@@ -29,7 +28,7 @@ function GameScene:ctor()
 	self:addChild(self.GameScene, 0, "GameScene")
 
 	self.Level = CCBReaderLoad("Level", proxy, GameScene)
-	self:addChild(self.Level, 1, "sky")
+	self:addChild(self.Level, 1, "Level")
 
 	self:LoadGameObjects()
 
@@ -37,11 +36,16 @@ function GameScene:ctor()
         self:update(dt)
     end)
 	self:scheduleUpdate()
+
+	self:setTouchEnabled(true)
+	self:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
+        return self:onTouch(event)
+    end)
 end
 
 function GameScene:LoadGameObjects()
 	self.GameObjects = {}
-	local children = self:getChildByName("sky"):getChildren()
+	local children = self.Level:getChildren()
 	for _, node in ipairs(children) do
 		-- print(node.config_key)
 		if node.config_key == "Coin" then
@@ -49,7 +53,8 @@ function GameScene:LoadGameObjects()
 		elseif node.config_key == "Bomb" then
 			table.insert(self.GameObjects, Bomb.new(node))
 		elseif node.config_key == "Dragon" then
-			table.insert(self.GameObjects, Dragon.new(node))
+			self.dragon = Dragon.new(node)
+			table.insert(self.GameObjects, self.dragon)
 		elseif node.config_key == "EndCoin" then
 			table.insert(self.GameObjects, EndCoin.new(node))
 		end
@@ -61,14 +66,40 @@ function GameScene:update(dt)
 	self.Level:setPositionY(y - 1)
 
 	for _, node in ipairs(self.GameObjects) do
-		-- print(node.node.config_key)
 		node:update()
 	end
 end
 
+function GameScene:onTouch(event)
+	self.touchEvent = event
+	if event.name == "began" then
+		self:addNodeEventListener(cc.NODE_TOUCH_TARGETING_PHASE, function(dt)
+			self:update(dt)
+			self:holdTouch(dt, self.touchEvent)
+		end)
+	elseif event.name == "moved" then
+		--todo
+	elseif event.name == "ended" then
+		self:addNodeEventListener(cc.NODE_ENTER_FRAME_EVENT,function(dt) 
+        	self:update(dt)
+   		end)
+	end
+	return true
+end
+
+function GameScene:holdTouch(dt, event)
+	local dragonPosX, dragonPosY = self.dragon:getPosition()
+	if math.abs(dragonPosX - event.x) <= 1 then
+		self.dragon:setPosition(event.x, dragonPosY)
+	elseif dragonPosX > event.x then
+		self.dragon:setPosition(dragonPosX-1, dragonPosY)
+	else
+		self.dragon:setPosition(dragonPosX+1, dragonPosY)
+	end
+end
+
 function GameScene:onDidLoadFromCCB(sender)
-	-- print("GameScene:onDidLoadFromCCB(sender)")
-	-- dump(ccb)
+
 end
 
 return GameScene
