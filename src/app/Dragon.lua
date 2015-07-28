@@ -1,0 +1,20 @@
+--
+-- Author: Your Name
+-- Date: 2015-07-28 11:47:01
+--
+
+local GameObject = import("app.GameObject")
+
+local Dragon = class("Dragon", GameObject)
+
+function Dragon:ctor(node)
+	self.super.ctor(self,node)
+end
+
+function Dragon:update()
+	self.super.update(self)
+	local newY = self.node:getPositionY() + 1
+	self.node:setPositionY(newY)
+end
+
+return Dragon
