@@ -6,4 +6,8 @@ local GameObject = import("app.GameObject")
 
 local Coin = class("Coin", GameObject)
 
+function Coin:handleCollisionWith(name)
+	self:remove()
+end
+
 return Coin

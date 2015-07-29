@@ -12,6 +12,7 @@ ccb["Dragon"] = {}
 ccb["Coin"] = {}
 ccb["EndCoin"] = {}
 ccb["Bomb"] = {}
+ccb["Explosion"] = {}
 
 local GameScene = class("GameScene", function()
 	return display.newScene("GameScene")
@@ -30,6 +31,9 @@ function GameScene:ctor()
 	self.Level = CCBReaderLoad("Level", proxy, GameScene)
 	self:addChild(self.Level, 1, "Level")
 
+	-- local explosion = CCBReaderLoad("Explosion", proxy, GameScene)
+
+	self.GameObjects = {}
 	self:LoadGameObjects()
 
 	self:addNodeEventListener(cc.NODE_ENTER_FRAME_EVENT,function(dt) 
@@ -44,7 +48,6 @@ function GameScene:ctor()
 end
 
 function GameScene:LoadGameObjects()
-	self.GameObjects = {}
 	local children = self.Level:getChildren()
 	for _, node in ipairs(children) do
 		-- print(node.config_key)
@@ -65,8 +68,23 @@ function GameScene:update(dt)
 	local y = self.Level:getPositionY()
 	self.Level:setPositionY(y - 1)
 
-	for _, node in ipairs(self.GameObjects) do
-		node:update()
+	for _, GameObject in ipairs(self.GameObjects) do
+		GameObject:update()
+	end
+
+	self:checkCollision()
+end
+
+function GameScene:checkCollision()
+	for i, GameObject in ipairs(self.GameObjects) do
+		if GameObject:getName() ~= "Dragon" 
+		and cc.pGetDistance(self.dragon:getPosition(), GameObject:getPosition()) < 40 then
+			-- print("Collision")
+			GameObject:handleCollisionWith("Dragon")
+			self.dragon:handleCollisionWith(GameObject:getName())
+			table.remove(self.GameObjects, i)
+			-- GameObject = nil
+		end
 	end
 end
 
@@ -75,7 +93,7 @@ function GameScene:onTouch(event)
 	if event.name == "began" then
 		self:addNodeEventListener(cc.NODE_TOUCH_TARGETING_PHASE, function(dt)
 			self:update(dt)
-			self:holdTouch(dt, self.touchEvent)
+			self:onTouchHold(dt, self.touchEvent)
 		end)
 	elseif event.name == "moved" then
 		--todo
@@ -87,14 +105,14 @@ function GameScene:onTouch(event)
 	return true
 end
 
-function GameScene:holdTouch(dt, event)
-	local dragonPosX, dragonPosY = self.dragon:getPosition()
-	if math.abs(dragonPosX - event.x) <= 1 then
+function GameScene:onTouchHold(dt, event)
+	local dragonPosX, dragonPosY = self.dragon:getPosition().x, self.dragon:getPosition().y
+	if math.abs(dragonPosX - event.x) <= 5 then
 		self.dragon:setPosition(event.x, dragonPosY)
 	elseif dragonPosX > event.x then
-		self.dragon:setPosition(dragonPosX-1, dragonPosY)
+		self.dragon:goLeft()
 	else
-		self.dragon:setPosition(dragonPosX+1, dragonPosY)
+		self.dragon:goRight()
 	end
 end
 
